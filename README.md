@@ -4,11 +4,13 @@ A self-contained router watchdog for Shelly Plug S Gen3.
 
 This project uses a Shelly Plug S Gen3 to monitor a local router/firewall and perform a controlled power cycle only when the router itself stops responding.
 
-It was built for a real-world problem: my UniFi Dream Router occasionally froze and had to be power-cycled manually. A normal “internet is down” automation would be too aggressive, because an ISP outage does not mean the router itself is dead. This script instead checks whether the router responds locally on the LAN.
+It was built for a real-world problem: my home automation server and router occasionally freeze and have to be power-cycled manually. A normal “internet is down” automation would be too aggressive, because an ISP outage does not mean the router itself is dead. A home automation server that is down can't restart itself.
+
+This script checks whether the device it powers responds locally on the LAN.
 
 ## What it does
 
-The Shelly Plug S Gen3 powers the router. A script running locally on the Shelly periodically sends an HTTP request to the router’s local management IP.
+The Shelly Plug S Gen3 powers the device, let's say it it our Internet router. A script running locally on the Shelly periodically sends an HTTP request to the router’s local management IP.
 
 If the router responds with any HTTP response, it is considered alive.
 
@@ -19,7 +21,7 @@ If the router still does not respond, the script retries with an increasing wait
 ## Design goals
 
 - Local-first: runs directly on the Shelly device
-- No dependency on Home Assistant, cloud services, DNS or internet
+- No dependency on Home Assistant, cloud services, DNS or internet - not even [Shelly Control Cloud](https://control.shelly.cloud)
 - Detects router failure, not internet failure
 - Conservative recovery logic with backoff
 - Maintenance mode via virtual component
