@@ -45,7 +45,7 @@ Timeout or connection failure means the router did not respond locally.
 Tested conceptually with:
 - Local router with managment interface available at `http://192.168.1.1/`
 - UniFi Dream Router that answers at `https://192.168.1.1/status`
-- Home Assistant at http://192.168.2.42/4357`
+-`
 
 ## Security considerations
 
