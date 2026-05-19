@@ -43,8 +43,9 @@ Timeout or connection failure means the router did not respond locally.
 - Optional: separate access points that keep Wi-Fi available even if the router freezes *(If you only have one router and the plug is disconnected from it's wi-fi it may indicate your router needs some HLR.)*
 
 Tested conceptually with:
-- UniFi Dream Router that answers at http://192.168.1.1/status
-- Local router URL such as `http://192.168.1.1/`
+- Local router with managment interface available at `http://192.168.1.1/`
+- UniFi Dream Router that answers at `https://192.168.1.1/status`
+- Home Assistant at http://192.168.2.42/4357`
 
 ## Security considerations
 
