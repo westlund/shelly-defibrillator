@@ -36,13 +36,19 @@ Timeout or connection failure means the router did not respond locally.
 
 ## Hardware
 
-- Shelly Plug S Gen3
+- Shelly Plug S Gen3 (may be compatible with older plugs but not tested)
 - Router/firewall powered through the Shelly Plug
-- Optional: separate access points that keep Wi-Fi available even if the router freezes
+- Optional: separate access points that keep Wi-Fi available even if the router freezes *(If you only have one router and the plug is disconnected from it's wi-fi it may indicate your router needs some HLR.)*
 
 Tested conceptually with:
-- UniFi Dream Router
+- UniFi Dream Router that answers at http://192.168.1.1/status
 - Local router URL such as `http://192.168.1.1/`
+
+## Security considerations
+
+Jamming your wifi or the plug directly will result in the plug losing its network thus invoking a cold reboot even if the router is alive. Someone with knowledge about your setup may use this to orchestrate a denial of service attack.
+
+Mitigation: Install a Shelly 1 Pro using wired network rather than wi-fi.
 
 ## Important safety note
 
@@ -64,3 +70,6 @@ Additional installation parameters are stored in Shelly KVS under the key:
 
 ```text
 defib_config
+```
+
+If there is no configuration entry one will be created for you with some default settings. You will want to edit it adding your own parameters.
