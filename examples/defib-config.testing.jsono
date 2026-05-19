@@ -1,0 +1,9 @@
+{
+  "target_url": "http://192.168.1.1/",
+  "power_off_s": 5,
+  "initial_retry_s": 30,
+  "max_retry_s": 60,
+  "poll_s": 20,
+  "timeout_s": 5,
+  "switch_id": 0
+}
