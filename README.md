@@ -1,12 +1,12 @@
-# Shelly Router Defibrillator
+# Shelly Defibrillator
 
-A self-contained router watchdog for Shelly Plug S Gen3.
+A self-contained watchdog for Shelly Plug S Gen3.
 
-This project uses a Shelly Plug S Gen3 to monitor a local router/firewall and perform a controlled power cycle only when the router itself stops responding.
+This project uses a Shelly Plug S Gen3 to monitor a local router/firewall or other kind of device that responds to network connections and perform a controlled power cycle only when the router or tracked device itself stops responding.
 
 It was built for a real-world problem: my home automation server and router occasionally freeze and have to be power-cycled manually. A normal “internet is down” automation would be too aggressive, because an ISP outage does not mean the router itself is dead. A home automation server that is down can't restart itself.
 
-This script checks whether the device it powers responds locally on the LAN.
+This script checks whether the device it powers responds.
 
 ## What it does
 
@@ -14,17 +14,17 @@ The Shelly Plug S Gen3 powers the device, let's say it it our Internet router. A
 
 If the router responds with any HTTP response, it is considered alive.
 
-If the router does not respond after a configurable number of consecutive failures, the Shelly Plug turns the router off, waits a few seconds, turns it back on, then waits for the router to boot before testing again.
+If the router does not respond after a configurable number of consecutive failures, the Shelly Plug cycles the power, then waits for the router to boot before testing again.
 
 If the router still does not respond, the script retries with an increasing wait interval.
 
 ## Design goals
 
 - Local-first: runs directly on the Shelly device
-- No dependency on Home Assistant, cloud services, DNS or internet - not even [Shelly Control Cloud](https://control.shelly.cloud)
+- No dependency on Home Assistant, IFTTT, cloud services, DNS or internet - not even [Shelly Control Cloud](https://control.shelly.cloud)
 - Detects router failure, not internet failure
 - Conservative recovery logic with backoff
-- Maintenance mode via virtual component
+- Maintenance mode via virtual switch
 - Persistent state using Shelly KVS
 - Minimal enough to run within Shelly scripting memory limits
 
@@ -38,9 +38,9 @@ Timeout or connection failure means the router did not respond locally.
 
 ## Hardware
 
-- Shelly Plug S Gen3 (may be compatible with older plugs but not tested)
+- Shelly Plug S Gen3 (may be compatible with older plugs or switches but not tested)
 - Router/firewall powered through the Shelly Plug
-- Optional: separate access points that keep Wi-Fi available even if the router freezes *(If you only have one router and the plug is disconnected from it's wi-fi it may indicate your router needs some HLR.)*
+- Optional: separate access points that keep Wi-Fi available even if the router freezes *(If you only have one router and the plug is disconnected from it's wi-fi it **will** power cycle your touter .)*
 
 Tested conceptually with:
 - Local router with managment interface available at `http://192.168.1.1/`
