@@ -1,4 +1,9 @@
-// Defibrillator minimal -- Shelly Plug S Gen3
+// Shelly Defibrillator -- router watchdog for Shelly Plug S Gen3
+// Power-cycles a frozen router only when the router itself is dead.
+// Version: 1.0.0
+// Repo:    https://github.com/westlund/shelly-defibrillator
+// License: MIT
+//
 // HTTP response = router alive.
 // KVS config key: defib_config
 // KVS state key:  defib_state
@@ -34,7 +39,7 @@ let st = {
 };
 
 let comps = [
-  {id:201,t:"boolean",k:"enabled",n:"Watchdog enabled",d:true},
+  {id:201,t:"boolean",k:"enabled",n:"Watchdog",d:true},
   {id:211,t:"number",k:"fail_threshold",n:"Failures to cycle",d:3,min:1,max:20},
   {id:213,t:"number",k:"max_cycles",n:"Max cycles / incident",d:5,min:0,max:50}
 ];
