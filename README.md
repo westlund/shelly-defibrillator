@@ -122,6 +122,33 @@ To exercise maintenance mode, toggle **Watchdog** off: the plug restores power a
 
 ## States and recovery
 
+```mermaid
+stateDiagram-v2
+    state "MON - monitoring (probe every poll_s)" as MON
+    state "CYC - power cycling" as CYC
+    state "WAIT - wait for boot, then probe" as WAIT
+    state "LOCK - gave up, power left ON" as LOCK
+    state "DISABLED - maintenance, power ON" as DISABLED
+
+    [*] --> MON: boot (restore power, reset)
+
+    MON --> CYC: fails reach "Failures to cycle"
+    CYC --> WAIT: power off (power_off_s), then on
+    WAIT --> MON: probe OK - recovered, reset counters
+    WAIT --> CYC: probe fail - wait x2 (backoff)
+    CYC --> LOCK: reached "Max cycles / incident"
+    WAIT --> LOCK: reached "Max cycles / incident"
+    LOCK --> MON: toggle Watchdog off then on
+
+    MON --> DISABLED: Watchdog off
+    DISABLED --> MON: Watchdog on (reset)
+
+    note right of DISABLED
+        Watchdog can be switched off
+        from any state for maintenance
+    end note
+```
+
 - **MON** — normal monitoring; probes every `poll_s`.
 - **CYC** — powering off, then back on.
 - **WAIT** — letting the device boot, then probing.
